@@ -1,103 +1,95 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body style="margin: 0">
-    <iframe id="zogo-iframe" style="border: none" src=""></iframe>
-    <div
-      id="zogo-preloader"
-      style="
-        overflow: hidden;
-        display: flex;
-        justify-content: center;
-        background-color: #171b42;
-        position: relative;
-      "
-    >
-      <img
-        src="https://zogo-files.s3.amazonaws.com/app-resources/preloader-loader.gif"
-        alt="loader"
-        id="zogo-preloader-loader"
-        style="position: absolute; top: calc(60% - 60px)"
-      />
-      <img
-        src="https://zogo-files.s3.amazonaws.com/app-resources/splash.png"
-        alt="preloader image"
-        id="zogo-preloader-image"
-        style="max-height: 100%"
-      />
-    </div>
-    <script>
-      // CONFIG
-      const BASE_URL = 'https://dev-integration.zogofinance.com';
-      const WIDGET_TYPE = 'learn_and_earn'; // this will eventually be customizable once there are other widget types available in the future
-      const TOKEN = 'YOUR_ZOGO_SSO_TOKEN_H';
+<iframe id="zogo-iframe" style="border: none" src=""></iframe>
+<div
+  id="zogo-preloader"
+  style="
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    background-color: #171b42;
+    position: relative;
+  "
+>
+  <img
+    src="https://zogo-files.s3.amazonaws.com/app-resources/preloader-loader.gif"
+    alt="loader"
+    id="zogo-preloader-loader"
+    style="position: absolute; top: calc(60% - 60px)"
+  />
+  <img
+    src="https://zogo-files.s3.amazonaws.com/app-resources/splash.png"
+    alt="preloader image"
+    id="zogo-preloader-image"
+    style="max-height: 100%"
+  />
+</div>
+<script>
+  // CONFIG
+  const BASE_URL = 'https://integration.zogofinance.com';
+  const WIDGET_TYPE = 'learn_and_earn'; // this will eventually be customizable once there are other widget types available in the future
+  const TOKEN = 'ZOGO_TOKEN';
 
-      // CUSTOMIZATIONS
-      const ALTERNATIVE_PRELOADER_IMAGE = null; // provide an image url to change the default preloader image
-      const ALTERNATIVE_PRELOADER_BACKGROUND_COLOR = null; // should match the background color of the preloader image
-      const IFRAME_WIDTH = '365px'; // minimum value: 365px
-      const IFRAME_HEIGHT = '580px'; // minimum value: 580px
-      const APP_PRIMARY_COLOR = '#0000FF';
-      const APP_INCORRECT_COLOR = '#00FF00';
-      const APP_BACKGROUND_COLOR = null;
-      const APP_BORDER_COLOR = null;
-      const PRIMARY_TEXT_COLOR = null;
-      const SECONDARY_TEXT_COLOR = null;
-      const ANCHOR_TEXT_COLOR = null;
-      const SNIPPET_TEXT_COLOR = null;
+  // CUSTOMIZATIONS
+  const ALTERNATIVE_PRELOADER_IMAGE = null; // provide an image url to change the default preloader image
+  const ALTERNATIVE_PRELOADER_BACKGROUND_COLOR = null; // should match the background color of the preloader image
+  const IFRAME_WIDTH = '390px'; // minimum value: 365px
+  const IFRAME_HEIGHT = '844px'; // minimum value: 580px
+  const APP_PRIMARY_COLOR = null;
+  const APP_INCORRECT_COLOR = null;
+  const APP_PRIMARY_BACKGROUND_COLOR = null;
+  const APP_SECONDARY_BACKGROUND_COLOR = null;
+  const APP_BORDER_COLOR = null;
+  const PRIMARY_TEXT_COLOR = null;
+  const SECONDARY_TEXT_COLOR = null;
+  const ANCHOR_TEXT_COLOR = null;
+  const SNIPPET_TEXT_COLOR = null;
+  const SNIPPET_COLOR_LIST = null; // should be array of colors
 
-      const integrationCustomizations = {
-        primary_color: APP_PRIMARY_COLOR,
-        incorrect_color: APP_INCORRECT_COLOR,
-        background_color: APP_BACKGROUND_COLOR,
-        border_color: APP_BORDER_COLOR,
-        primary_text_color: PRIMARY_TEXT_COLOR,
-        secondary_text_color: SECONDARY_TEXT_COLOR,
-        anchor_text_color: ANCHOR_TEXT_COLOR,
-        snippet_text_color: SNIPPET_TEXT_COLOR,
-      };
+  const integrationCustomizations = {
+    primary_color: APP_PRIMARY_COLOR,
+    incorrect_color: APP_INCORRECT_COLOR,
+    primary_background_color: APP_PRIMARY_BACKGROUND_COLOR,
+    secondary_background_color: APP_SECONDARY_BACKGROUND_COLOR,
+    border_color: APP_BORDER_COLOR,
+    primary_text_color: PRIMARY_TEXT_COLOR,
+    secondary_text_color: SECONDARY_TEXT_COLOR,
+    anchor_text_color: ANCHOR_TEXT_COLOR,
+    snippet_text_color: SNIPPET_TEXT_COLOR,
+    snippet_colors: SNIPPET_COLOR_LIST,
+  };
 
-      // SCRIPTS TO SET VALUES
-      const encodedCustomizationObject = encodeURIComponent(
-        JSON.stringify(integrationCustomizations)
-      );
+  // SCRIPTS TO SET VALUES
+  const encodedCustomizationObject = encodeURIComponent(
+    JSON.stringify(integrationCustomizations)
+  );
 
-      const iframe = document.querySelector('#zogo-iframe');
-      iframe.allow = `clipboard-read; clipboard-write self ${BASE_URL}`;
-      iframe.style.width = IFRAME_WIDTH;
-      iframe.style.height = '0';
-      iframe.src = `${BASE_URL}?widget_type=${WIDGET_TYPE}&token=${TOKEN}&integration_customizations=${encodedCustomizationObject}`;
+  const iframe = document.querySelector('#zogo-iframe');
+  iframe.allow = `clipboard-read; clipboard-write self ${BASE_URL}`;
+  iframe.style.width = IFRAME_WIDTH;
+  iframe.style.height = '0';
+  iframe.src = `${BASE_URL}?widget_type=${WIDGET_TYPE}&token=${TOKEN}&integration_customizations=${encodedCustomizationObject}`;
 
-      const preloader = document.querySelector('#zogo-preloader');
-      preloader.style.width = IFRAME_WIDTH;
-      preloader.style.height = IFRAME_HEIGHT;
-      if (ALTERNATIVE_PRELOADER_BACKGROUND_COLOR) {
-        preloader.style.backgroundColor =
-          ALTERNATIVE_PRELOADER_BACKGROUND_COLOR;
-      }
+  const preloader = document.querySelector('#zogo-preloader');
+  preloader.style.width = IFRAME_WIDTH;
+  preloader.style.height = IFRAME_HEIGHT;
+  if (ALTERNATIVE_PRELOADER_BACKGROUND_COLOR) {
+    preloader.style.backgroundColor = ALTERNATIVE_PRELOADER_BACKGROUND_COLOR;
+  }
 
-      const preloaderImage = document.querySelector('#zogo-preloader-image');
-      if (ALTERNATIVE_PRELOADER_IMAGE) {
-        preloaderImage.src = ALTERNATIVE_PRELOADER_IMAGE;
-      }
+  const preloaderImage = document.querySelector('#zogo-preloader-image');
+  if (ALTERNATIVE_PRELOADER_IMAGE) {
+    preloaderImage.src = ALTERNATIVE_PRELOADER_IMAGE;
+  }
 
-      // when receiving an appropriate message from the iframed zogo app, the preloader will be hidden and the zogo-iframe will be revealed
-      window.addEventListener('message', function (event) {
-        if (event.origin !== BASE_URL) {
-          return;
-        }
-        if (event.data === 'zogo ready') {
-          preloader.style.height = '0';
-          document.querySelector('#zogo-preloader-loader').style.visibility =
-            'hidden';
-          iframe.style.height = IFRAME_HEIGHT;
-        }
-      });
-    </script>
-  </body>
-</html>
+  // when receiving an appropriate message from the iframed zogo app, the preloader will be hidden and the zogo-iframe will be revealed
+  window.addEventListener('message', function (event) {
+    if (event.origin !== BASE_URL) {
+      return;
+    }
+    if (event.data === 'zogo ready') {
+      preloader.style.height = '0';
+      document.querySelector('#zogo-preloader-loader').style.visibility =
+        'hidden';
+      iframe.style.height = IFRAME_HEIGHT;
+    }
+  });
+</script>
