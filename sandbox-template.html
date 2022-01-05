@@ -24,7 +24,6 @@
 </div>
 <script>
   // CONFIG
-  const BASE_URL = 'https://integration.zogofinance.com';
   const WIDGET_TYPE = 'learn_and_earn'; // this will eventually be customizable once there are other widget types available in the future
   const TOKEN = 'ZOGO_TOKEN';
 
@@ -44,6 +43,7 @@
   const SNIPPET_TEXT_COLOR = null;
   const SNIPPET_COLOR_LIST = null; // should be array of colors
 
+  // Sandbox values and scripts DO NOT EDIT
   const integrationCustomizations = {
     primary_color: APP_PRIMARY_COLOR,
     incorrect_color: APP_INCORRECT_COLOR,
@@ -57,7 +57,8 @@
     snippet_colors: SNIPPET_COLOR_LIST,
   };
 
-  // SCRIPTS TO SET VALUES
+  const BASE_URL = 'https://integration.zogofinance.com';
+
   const encodedCustomizationObject = encodeURIComponent(
     JSON.stringify(integrationCustomizations)
   );
