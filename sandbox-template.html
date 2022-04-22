@@ -59,7 +59,10 @@
     snippet_colors: SNIPPET_COLOR_LIST,
   };
 
-  const BASE_URL = 'https://integration.zogofinance.com';
+  // development base url
+  const BASE_URL = 'https://dev-integration.zogofinance.com';
+  // production base url
+  // const BASE_URL = 'https://integration.zogofinance.com';
 
   const encodedCustomizationObject = encodeURIComponent(
     JSON.stringify(integrationCustomizations)
