@@ -24,14 +24,21 @@
 </div>
 <script>
   // CONFIG
-  const WIDGET_TYPE = 'learn_and_earn'; // this will eventually be customizable once there are other widget types available in the future
-  const TOKEN = 'ZOGO_TOKEN';
+  const WIDGET_TYPE = 'learn_and_earn'; // learn_and_earn || deep_link
+  const TOKEN = '<ZOGO_TOKEN>'; // The unique user token you have retrieved from the Zogo API
+  const MODULE_ID = null; // this is only needed if widget_type is "deep_link"
+  // development base url
+  const BASE_URL = 'https://dev-integration.zogofinance.com';
+  // production base url
+  // const BASE_URL = 'https://integration.zogofinance.com';
 
-  // CUSTOMIZATIONS
+  // PRELOADER CUSTOMIZATIONS
   const ALTERNATIVE_PRELOADER_IMAGE = null; // provide an image url to change the default preloader image
   const ALTERNATIVE_PRELOADER_BACKGROUND_COLOR = null; // should match the background color of the preloader image
+  // SIZE CUSTOMIZATIONS
   const IFRAME_WIDTH = '390px'; // minimum value: 365px
   const IFRAME_HEIGHT = '844px'; // minimum value: 580px
+  // COLOR CUSTOMIZATIONS
   const APP_PRIMARY_COLOR = null;
   const APP_INCORRECT_COLOR = null;
   const APP_PRIMARY_BACKGROUND_COLOR = null;
@@ -43,6 +50,11 @@
   const ANCHOR_TEXT_COLOR = null;
   const SNIPPET_TEXT_COLOR = null;
   const SNIPPET_COLOR_LIST = null; // should be array of colors
+  // DEEP LINK CUSTOMIZATONS
+  const CTA_TEXT = 'You finished the module!';
+  const CTA_BUTTON_TEXT = 'continue';
+  const CTA_ACTION_TYPE = 'post-message'; // "post-message" || "url"
+  const CTA_ACTION_VALUE = 'module complete';
 
   // Sandbox values and scripts DO NOT EDIT
   const integrationCustomizations = {
@@ -59,20 +71,35 @@
     snippet_colors: SNIPPET_COLOR_LIST,
   };
 
-  // development base url
-  const BASE_URL = 'https://dev-integration.zogofinance.com';
-  // production base url
-  // const BASE_URL = 'https://integration.zogofinance.com';
+  const deepLinkCustomizations = {
+    cta_text: CTA_TEXT,
+    cta_button_text: CTA_BUTTON_TEXT,
+    cta_action_type: CTA_ACTION_TYPE,
+    cta_action_value: CTA_ACTION_VALUE,
+  };
 
   const encodedCustomizationObject = encodeURIComponent(
     JSON.stringify(integrationCustomizations)
   );
 
+  const encodedDeepLinkObject = encodeURIComponent(
+    JSON.stringify(deepLinkCustomizations)
+  );
+
+  let iframeSource = `${BASE_URL}?widget_type=${WIDGET_TYPE}&token=${TOKEN}&integration_customizations=${encodedCustomizationObject}`;
+  if (MODULE_ID) {
+    iframeSource += `&module_id=${MODULE_ID}`;
+  }
+
+  if (WIDGET_TYPE === 'deep_link') {
+    iframeSource += `&deep_link_customizations=${encodedDeepLinkObject}`;
+  }
+
   const iframe = document.querySelector('#zogo-iframe');
   iframe.allow = `clipboard-read; clipboard-write self ${BASE_URL}`;
   iframe.style.width = IFRAME_WIDTH;
   iframe.style.height = '0';
-  iframe.src = `${BASE_URL}?widget_type=${WIDGET_TYPE}&token=${TOKEN}&integration_customizations=${encodedCustomizationObject}`;
+  iframe.src = iframeSource;
 
   const preloader = document.querySelector('#zogo-preloader');
   preloader.style.width = IFRAME_WIDTH;
@@ -96,6 +123,20 @@
       document.querySelector('#zogo-preloader-loader').style.visibility =
         'hidden';
       iframe.style.height = IFRAME_HEIGHT;
+    }
+  });
+
+  /*
+   * when using the deep_link widget type this event listener will listen for the message letting
+   * the parent app (your app) know the user has completed the deep linked module
+   */
+  window.addEventListener('message', function (event) {
+    if (event.origin !== BASE_URL) {
+      return;
+    }
+    if (event.data === 'module complete') {
+      // you will need to change this value if you set a custom postmessage
+      // Add in appropriate parent app (your app) functionality for when the user has completed a deep link module
     }
   });
 </script>
