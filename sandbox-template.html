@@ -24,9 +24,10 @@
 </div>
 <script>
   // CONFIG
-  const WIDGET_TYPE = 'learn_and_earn'; // learn_and_earn || deep_link
-  const TOKEN = '<ZOGO_TOKEN>'; // The unique user token you have retrieved from the Zogo API
-  const MODULE_ID = null; // this is only needed if widget_type is "deep_link"
+  const WIDGET_TYPE = 'learn_and_earn'; // learn_and_earn || deep_link  || anon_deep_link
+  const TOKEN = '<ZOGO_TOKEN>'; // The unique user token you have retrieved from the Zogo API (required for learn_and_earn and deep_link)
+  const MODULE_ID = null; // the module id of the module being deep linked to (required for deep_link and anon_deep_link)
+  const INSTITUTION_ID = null; // your institution id (required for anon_deep_link)
   // development base url
   const BASE_URL = 'https://dev-integration.zogofinance.com';
   // production base url
@@ -51,6 +52,11 @@
   const SNIPPET_TEXT_COLOR = null;
   const SNIPPET_COLOR_LIST = null; // should be array of colors
   // DEEP LINK CUSTOMIZATONS
+  const COMPLETION_MESSAGE = null;
+  const COMPLETION_ICON = null; // should be image url
+  const BANNER_IMAGE = null; // should be image url
+  const BANNER_ACTION_TYPE = 'post-mesage'; // "post-message" || "url"
+  const BANNER_ACTION_VALUE = 'banner clicked';
   const CTA_TEXT = 'You finished the module!';
   const CTA_BUTTON_TEXT = 'continue';
   const CTA_ACTION_TYPE = 'post-message'; // "post-message" || "url"
@@ -86,13 +92,15 @@
     JSON.stringify(deepLinkCustomizations)
   );
 
-  let iframeSource = `${BASE_URL}?widget_type=${WIDGET_TYPE}&token=${TOKEN}&integration_customizations=${encodedCustomizationObject}`;
-  if (MODULE_ID) {
-    iframeSource += `&module_id=${MODULE_ID}`;
+  let iframeSource = `${BASE_URL}?widget_type=${WIDGET_TYPE}&integration_customizations=${encodedCustomizationObject}`;
+  if (WIDGET_TYPE === 'learn_and_earn' || WIDGET_TYPE === 'deep_link') {
+    iframeSource += `&token=${TOKEN}`;
   }
-
-  if (WIDGET_TYPE === 'deep_link') {
-    iframeSource += `&deep_link_customizations=${encodedDeepLinkObject}`;
+  if (WIDGET_TYPE === 'deep_link' || WIDGET_TYPE === 'anon_deep_link') {
+    iframeSource += `&module_id=${MODULE_ID}&deep_link_customizations=${encodedDeepLinkObject}`;
+  }
+  if (WIDGET_TYPE === 'anon_deep_link') {
+    iframeSource += `&institution_id=${INSTITUTION_ID}`;
   }
 
   const iframe = document.querySelector('#zogo-iframe');
