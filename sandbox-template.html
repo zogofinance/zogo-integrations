@@ -24,14 +24,22 @@
 </div>
 <script>
   // CONFIG
-  const WIDGET_TYPE = 'learn_and_earn'; // this will eventually be customizable once there are other widget types available in the future
-  const TOKEN = 'ZOGO_TOKEN';
+  const WIDGET_TYPE = 'learn_and_earn'; // learn_and_earn || deep_link  || anon_deep_link
+  const TOKEN = '<ZOGO_TOKEN>'; // The unique user token you have retrieved from the Zogo API (required for learn_and_earn and deep_link)
+  const MODULE_ID = null; // the module id of the module being deep linked to (required for deep_link and anon_deep_link)
+  const INSTITUTION_ID = null; // your institution id (required for anon_deep_link)
+  // development base url
+  const BASE_URL = 'https://dev-integration.zogofinance.com';
+  // production base url
+  // const BASE_URL = 'https://integration.zogofinance.com';
 
-  // CUSTOMIZATIONS
+  // PRELOADER CUSTOMIZATIONS
   const ALTERNATIVE_PRELOADER_IMAGE = null; // provide an image url to change the default preloader image
   const ALTERNATIVE_PRELOADER_BACKGROUND_COLOR = null; // should match the background color of the preloader image
+  // SIZE CUSTOMIZATIONS
   const IFRAME_WIDTH = '390px'; // minimum value: 365px
   const IFRAME_HEIGHT = '844px'; // minimum value: 580px
+  // COLOR CUSTOMIZATIONS
   const APP_PRIMARY_COLOR = null;
   const APP_INCORRECT_COLOR = null;
   const APP_PRIMARY_BACKGROUND_COLOR = null;
@@ -43,36 +51,68 @@
   const ANCHOR_TEXT_COLOR = null;
   const SNIPPET_TEXT_COLOR = null;
   const SNIPPET_COLOR_LIST = null; // should be array of colors
+  // DEEP LINK CUSTOMIZATONS
+  const COMPLETION_MESSAGE = null;
+  const COMPLETION_ICON = null; // should be image url
+  const BANNER_IMAGE = null; // should be image url
+  const BANNER_ACTION_TYPE = 'post-mesage'; // "post-message" || "url"
+  const BANNER_ACTION_VALUE = 'banner clicked';
+  const CTA_TEXT = 'You finished the module!';
+  const CTA_BUTTON_TEXT = 'continue';
+  const CTA_ACTION_TYPE = 'post-message'; // "post-message" || "url"
+  const CTA_ACTION_VALUE = 'module complete';
 
   // Sandbox values and scripts DO NOT EDIT
   const integrationCustomizations = {
-    primary_color: APP_PRIMARY_COLOR,
-    incorrect_color: APP_INCORRECT_COLOR,
-    primary_background_color: APP_PRIMARY_BACKGROUND_COLOR,
-    secondary_background_color: APP_SECONDARY_BACKGROUND_COLOR,
-    tertiary_background_color: APP_TERTIARY_BACKGROUND_COLOR,
-    border_color: APP_BORDER_COLOR,
-    primary_text_color: PRIMARY_TEXT_COLOR,
-    secondary_text_color: SECONDARY_TEXT_COLOR,
-    anchor_text_color: ANCHOR_TEXT_COLOR,
-    snippet_text_color: SNIPPET_TEXT_COLOR,
-    snippet_colors: SNIPPET_COLOR_LIST,
+    pc: APP_PRIMARY_COLOR,
+    ic: APP_INCORRECT_COLOR,
+    pbc: APP_PRIMARY_BACKGROUND_COLOR,
+    sbc: APP_SECONDARY_BACKGROUND_COLOR,
+    tbc: APP_TERTIARY_BACKGROUND_COLOR,
+    bc: APP_BORDER_COLOR,
+    ptc: PRIMARY_TEXT_COLOR,
+    stc: SECONDARY_TEXT_COLOR,
+    atc: ANCHOR_TEXT_COLOR,
+    sntc: SNIPPET_TEXT_COLOR,
+    snc: SNIPPET_COLOR_LIST,
   };
 
-  // development base url
-  const BASE_URL = 'https://dev-integration.zogofinance.com';
-  // production base url
-  // const BASE_URL = 'https://integration.zogofinance.com';
+  const deepLinkCustomizations = {
+    cm: COMPLETION_MESSAGE,
+    ci: COMPLETION_ICON,
+    bi: BANNER_IMAGE,
+    bat: BANNER_ACTION_TYPE,
+    bav: BANNER_ACTION_VALUE,
+    ct: CTA_TEXT,
+    cbt: CTA_BUTTON_TEXT,
+    cat: CTA_ACTION_TYPE,
+    cav: CTA_ACTION_VALUE,
+  };
 
   const encodedCustomizationObject = encodeURIComponent(
     JSON.stringify(integrationCustomizations)
   );
 
+  const encodedDeepLinkObject = encodeURIComponent(
+    JSON.stringify(deepLinkCustomizations)
+  );
+
+  let iframeSource = `${BASE_URL}?widget_type=${WIDGET_TYPE}&integration_customizations=${encodedCustomizationObject}`;
+  if (WIDGET_TYPE === 'learn_and_earn' || WIDGET_TYPE === 'deep_link') {
+    iframeSource += `&token=${TOKEN}`;
+  }
+  if (WIDGET_TYPE === 'deep_link' || WIDGET_TYPE === 'anon_deep_link') {
+    iframeSource += `&module_id=${MODULE_ID}&deep_link_customizations=${encodedDeepLinkObject}`;
+  }
+  if (WIDGET_TYPE === 'anon_deep_link') {
+    iframeSource += `&institution_id=${INSTITUTION_ID}`;
+  }
+
   const iframe = document.querySelector('#zogo-iframe');
   iframe.allow = `clipboard-read; clipboard-write self ${BASE_URL}`;
   iframe.style.width = IFRAME_WIDTH;
   iframe.style.height = '0';
-  iframe.src = `${BASE_URL}?widget_type=${WIDGET_TYPE}&token=${TOKEN}&integration_customizations=${encodedCustomizationObject}`;
+  iframe.src = iframeSource;
 
   const preloader = document.querySelector('#zogo-preloader');
   preloader.style.width = IFRAME_WIDTH;
@@ -96,6 +136,20 @@
       document.querySelector('#zogo-preloader-loader').style.visibility =
         'hidden';
       iframe.style.height = IFRAME_HEIGHT;
+    }
+  });
+
+  /*
+   * when using the deep_link widget type this event listener will listen for the message letting
+   * the parent app (your app) know the user has completed the deep linked module
+   */
+  window.addEventListener('message', function (event) {
+    if (event.origin !== BASE_URL) {
+      return;
+    }
+    if (event.data === 'module complete') {
+      // you will need to change this value if you set a custom postmessage
+      // Add in appropriate parent app (your app) functionality for when the user has completed a deep link module
     }
   });
 </script>
