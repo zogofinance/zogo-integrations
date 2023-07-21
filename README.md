@@ -244,13 +244,13 @@ The fastest way to get a token for testing purposes is by utilizing CURL.
 
 # Customizations
 
-![Screenshot 2023-07-17 at 12.53.13 PM.png](Customizations%20f12d188be12a43cda08c512868ff7e8b/Screenshot_2023-07-17_at_12.53.13_PM.png)
+![Screenshot 2023-07-17 at 12.53.13 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_12.53.13_PM.png)
 
-![Screenshot 2023-07-17 at 12.53.28 PM.png](Customizations%20f12d188be12a43cda08c512868ff7e8b/Screenshot_2023-07-17_at_12.53.28_PM.png)
+![Screenshot 2023-07-17 at 12.53.28 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_12.53.28_PM.png)
 
-![Screenshot 2023-07-17 at 12.53.38 PM.png](Customizations%20f12d188be12a43cda08c512868ff7e8b/Screenshot_2023-07-17_at_12.53.38_PM.png)
+![Screenshot 2023-07-17 at 12.53.38 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_12.53.38_PM.png)
 
-![Screenshot 2023-07-17 at 12.54.50 PM.png](Customizations%20f12d188be12a43cda08c512868ff7e8b/Screenshot_2023-07-17_at_12.54.50_PM.png)
+![Screenshot 2023-07-17 at 12.54.50 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/-07-17_at_12.54.50_PM.png)
 
 The Zogo Integration has two types of customizations, ones that are controlled by our backend and ones that are controlled by the data you feed to the iFrame.
 
