@@ -13,24 +13,24 @@ const BASEURLPARAMS = `?widget_type=deep_link&token=${token}`;
 //customizable items object
 const integrationCustomizations = {
   colors: {
-    primary: '#0050AA', // or any valid hex color
-    header: '#484848', // or any valid hex color
-    sub_header: '6F6F6F', // or any valid hex color
-    button: '#FFFFFF', // or any valid hex color
-    background: '#FFFFFF', // or any valid hex color
-    highlight: '#DCDCDC', // or any valid hex color
+    primary: '#0050AA', // any valid hex color; Default: #0050AA
+    header: '#484848', // any valid hex color; Default: #484848
+    sub_header: '#6F6F6F', // any valid hex color; Default: #6F6F6F
+    button: '#FFFFFF', // any valid hex color; Default: #FFFFFF
+    background: '#FFFFFF', // any valid hex color; Default: #FFFFFF
+    highlight: '#DCDCDC', // any valid hex color; Default: #DCDCDC
   },
-  font: 'gotham', // raleway || notosans || merriweather
+  font: 'gotham', // gotham || raleway || notosans || merriweather
   button: {
-    text_style: 'capitalize', // uppercase || lowercase
+    text_style: 'capitalize', // capitalize || uppercase || lowercase
     border_radius: 8, // reccommeded range 0 - 30; < 30 has no effect
   },
-  language: 'en_US', // es_US
+  language: 'en_US', // en_US || es_US
   end_of_module: {
-    cta_text: 'You finished this module!',
-    cta_button_text: 'done',
+    cta_text: 'You finished this module!', // Default: 'You finished this module!'
+    cta_button_text: 'done', // Default: 'done'
     cta_post_message: 'module complete', // this is emitted to the parent app (this app/ your implementation) so you can control navigating see FLOW LISTENERS below
-    banner_image: 'https://i.imgur.com/NiaFQjY.png', // an dedicated image or ad space will emit the below post message when clicked
+    banner_image: null, // image url for optional banner image
     banner_post_message: 'banner clicked', // this is emitted when a user taps the banner image.
   },
 };
@@ -49,10 +49,13 @@ const builtiFrameURL =
 // FLOW LISTENERS
 // these listeners listen to feedback / communication from the zogo app to the parent app (this site in this example)
 window.addEventListener('message', event => {
+  if (event.origin !== this.iFrameURL) {
+    return;
+  }
   console.log('message heard: ', event.data);
 
-  /* when ready to display content Zogo sends a post request
-     with the message zogo ready as the text to let the parent app
+  /* when ready to display content Zogo sends a postmessage
+     with the message "zogo ready" as the text to let the parent app
      know that it is ready and whatever loader the parent uses is 
      no longer needed.
   */
@@ -71,8 +74,9 @@ window.addEventListener('message', event => {
   if (event.data === 'banner clicked') {
     console.log('banner image clicked');
   }
-  if (event.origin !== this.iFrameURL) {
-    return;
+  if (event.data.startsWith('openURL:')) {
+    const urlClicked = event.data.split(':')[1];
+    console.log(`user clicked on link: ${urlClicked}`);
   }
 });
 
