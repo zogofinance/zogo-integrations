@@ -17,11 +17,13 @@ This integration features robust customizations controlled both by your implemen
 
 # Integration Overview
 
-1. Retrieve a User Access Token from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-Reference))
+1. Retrieve a User Access Token from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-reference))
 2. Choose the Module ID of the content you wish to embed. (see [Module IDs](#module-ids))
 3. Choose your customizations by generating your Customization Object (see [Customizations](#customizations))
 4. Build your iframe URL to embed by combining the Iframe Base URL, User Access Token, Module ID, and Customization Object (see [Iframe URL](#iframe-url))
 5. Embed the iframe URL and listen for the appropriate postMessage events (See [Demo Integration Template](#demo-integration-template) and [PostMessage Events](#postmessage-events)).
+
+Also check out this [Video Walkthrough](https://www.loom.com/share/85b8a103f9834d3eaf0a5e074d2e7779) that goes through a basic integration!
 
 # Iframe URL
 
@@ -37,7 +39,7 @@ The base URL determines whether the visual client you are using is the productio
 
 `{BASE_URL}?token={USER_ACCESS_TOKEN}&module_id={MODULE_ID}&integration_customizations={CUSTOMIZATION_OBJECT}`
 
-- **token:** single-use token retrieved from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-Reference))
+- **token:** single-use token retrieved from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-reference))
 - **module_id:** the ID of the content you wish to embed. (see [Module IDs](#module-ids))
 - **integration_customizations:** URL-encoded configuration object for the customizations you want to use (see [Customizations](#customizations)
 
@@ -702,7 +704,7 @@ You will need to setup listeners for these events. Examples of listeners can be 
 
 # Demo Integration Template
 
-We have provided a [template](https://github.com/zogofinance/zogo-integrations/tree/cycle-28-development/integration-v2-template) for a simple integration of Zogo Integration. It is a great reference while you are building out your integration.
+We have provided a [template](https://github.com/zogofinance/zogo-integrations/tree/main/integration-v2-template) for a simple integration of Zogo Integration. It is a great reference while you are building out your integration.
 
 # Moving To Production
 
