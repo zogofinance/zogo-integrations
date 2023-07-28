@@ -1,0 +1,76 @@
+.integration-iframe {
+  position: absolute;
+  left: 22px;
+  top: 18px;
+  border-radius: 36px;
+  height: 641px;
+}
+
+.fake-phone-frame {
+  height: 667px;
+}
+
+.fake-parent-app {
+  position: absolute;
+  height: 644px;
+  top: 12px;
+  left: 14px;
+  border-radius: 36px;
+  width: 305px;
+}
+
+.start-learning-button {
+  height: 44px;
+  position: absolute;
+  width: 305px;
+  top: 547px;
+  left: 14px;
+  cursor: pointer;
+}
+
+.simulation-container {
+  max-width: 333px;
+  position: relative;
+}
+
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 120px;
+  width: 120px;
+  z-index: 5;
+}
+
+.iframe-positioning {
+  position: absolute;
+  top: 82px;
+  left: 14px;
+  border: none;
+  width: 305px;
+  height: 574px;
+  border-bottom-left-radius: 38px;
+  border-bottom-right-radius: 38px;
+  z-index: 4;
+}
+
+.parent-app-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  align-items: center;
+  position: absolute;
+  top: 12px;
+  padding-top: 22px;
+  padding-bottom: 22px;
+  border-bottom: 2px solid #dcdcdc;
+  width: 285px;
+  left: 14px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.navigation-arrow {
+  cursor: pointer;
+}
