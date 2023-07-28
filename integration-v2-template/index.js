@@ -1,17 +1,17 @@
 // the id of the module you want to link to
-const module_id = 255;
+const MODULE_ID = '<MODULE_ID>';
 
 // user token for the individual instance of the iFrame, single use. See documentation for details on how you should be retrieving this token.
-const token = '<ZOGO_TOKEN>';
+const TOKEN = '<ZOGO_TOKEN>';
 
 // the base url integration.zogo.com is the current active production environment dev-integration.zogo.com is the latest published version
-const baseURL = 'https://integration.zogo.com'; // || https://dev-integration.zogo.com
+const BASE_URL = 'https://integration.zogo.com'; // || https://dev-integration.zogo.com
 
 // the basic settings and auth token
-const BASEURLPARAMS = `?widget_type=deep_link&token=${token}`;
+const BASE_URL_PARAMS = `?widget_type=deep_link&token=${TOKEN}&module_id=${MODULE_ID}`;
 
 //customizable items object
-const integrationCustomizations = {
+const INTEGRATION_CUSTOMIZATIONS = {
   colors: {
     primary: '#0050AA', // any valid hex color; Default: #0050AA
     header: '#484848', // any valid hex color; Default: #484848
@@ -25,7 +25,7 @@ const integrationCustomizations = {
     text_style: 'capitalize', // capitalize || uppercase || lowercase
     border_radius: 8, // reccommeded range 0 - 30; < 30 has no effect
   },
-  language: 'en_US', // en_US || es_US
+  language: 'en-US', // en-US || es-US
   end_of_module: {
     cta_text: 'You finished this module!', // Default: 'You finished this module!'
     cta_button_text: 'done', // Default: 'done'
@@ -37,35 +37,36 @@ const integrationCustomizations = {
 
 // the customizations get url encoded and prepped to be added as a URL parameter
 const encodedIntegrationCustomizations = encodeURIComponent(
-  JSON.stringify(integrationCustomizations)
+  JSON.stringify(INTEGRATION_CUSTOMIZATIONS)
 );
 
 // the final URL to be used on the iFrame and the customizations
 const builtiFrameURL =
-  baseURL +
-  BASEURLPARAMS +
+  BASE_URL +
+  BASE_URL_PARAMS +
   `&integration_customizations=${encodedIntegrationCustomizations}`;
 
 // FLOW LISTENERS
 // these listeners listen to feedback / communication from the zogo app to the parent app (this site in this example)
 window.addEventListener('message', event => {
-  if (event.origin !== this.iFrameURL) {
+  if (event.origin !== BASE_URL) {
     return;
   }
   console.log('message heard: ', event.data);
 
   /* when ready to display content Zogo sends a postmessage
      with the message "zogo ready" as the text to let the parent app
-     know that it is ready and whatever loader the parent uses is 
+     know that it is ready and whatever loader the parent uses is
      no longer needed.
   */
   if (event.data === 'zogo ready') {
     console.log('hide loader');
+    const loader = document.getElementById('loader');
     loader.parentNode.removeChild(loader);
   }
 
-  /* in this example the call_to_action_post_message property is set to module complete 
-  
+  /* in this example the call_to_action_post_message property is set to module complete
+
   */
   if (event.data === 'module complete') {
     console.log('module complete');
