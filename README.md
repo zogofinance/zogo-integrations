@@ -2,32 +2,32 @@
 
 Zogo Integration utilizes an iframe to display a reduced version of the Zogo learning flow.
 
-This integration features robust customizations controlled both by your implementations and our backend we’ll cover this difference between these two here shortly.
+This integration features robust customizations controlled both by your implementations and our backend — we’ll cover the difference between these two here shortly.
 
 ## Table of contents
 
 - [Integration Overview](#integration-overview)
 - [Iframe URL](#iframe-url)
-- [Module Ids](#module-ids)
+- [Module IDs](#module-ids)
 - [API Reference](#api-reference)
 - [Customizations](#customizations)
-- [PostMessage Events](#post-message-events)
+- [PostMessage Events](#postmessage-events)
 - [Demo Integration Template](#demo-integration-template)
 - [Moving to Production](#moving-to-production)
 
 # Integration Overview
 
 1. Retrieve a User Access Token from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-Reference))
-2. Choose the Module Id of the content you wish to embed. (see [Module Ids](#module-ids))
+2. Choose the Module ID of the content you wish to embed. (see [Module IDs](#module-ids))
 3. Choose your customizations by generating your Customization Object (see [Customizations](#customizations))
-4. Build your iframe url to embed by combining the Iframe Base Url, User Access Token, Module Id, and Customization Object (see [Iframe URL](#iframe-url))
-5. Embed the iframe url and listen for the approriate postMessage events (See [Demo Integration Template](#demo-integration-template) and [PostMessage Events](#post-message-events)).
+4. Build your iframe URL to embed by combining the Iframe Base URL, User Access Token, Module ID, and Customization Object (see [Iframe URL](#iframe-url))
+5. Embed the iframe URL and listen for the appropriate postMessage events (See [Demo Integration Template](#demo-integration-template) and [PostMessage Events](#postmessage-events)).
 
 # Iframe URL
 
 ### Base URL
 
-The base URL determines whether the visual client you are using is the production version or the testing/development version. Also, when using the testing base url, test users will be created instead of production users. These test users will not be included in any anylyics provided by Zogo and also will not show up in default in the responses to the Zogo API routes.
+The base URL determines whether the visual client you are using is the production version or the testing/development version. Also, when using the testing base URL, test users will be created instead of production users. These test users will not be included in any analytics provided by Zogo and also will not show up in default in the responses to the Zogo API routes.
 
 **Production:** https://integration.zogo.com
 
@@ -37,13 +37,13 @@ The base URL determines whether the visual client you are using is the productio
 
 `{BASE_URL}?token={USER_ACCESS_TOKEN}&module_id={MODULE_ID}&integration_customizations={CUSTOMIZATION_OBJECT}`
 
-- **token:** single use token retrieved from the from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-Reference))
-- **module_id:** the id of the content you wish to embed. (see [Module Ids](#module-ids))
-- **integration_customizations:** url-encoded configuration object for the customizations you want to use (see [Customizations](#customizations)
+- **token:** single-use token retrieved from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-Reference))
+- **module_id:** the ID of the content you wish to embed. (see [Module IDs](#module-ids))
+- **integration_customizations:** URL-encoded configuration object for the customizations you want to use (see [Customizations](#customizations)
 
-# Module Ids
+# Module IDs
 
-The content that will be displayed in the iframe is determined by the module_id you include in the iframe url. Each education module (i.e. lesson) has a unique id. When using the testing/development credentials included in [API Reference](#api-reference) you will only have access to the following ten demo modules. Once you retrieve your production credentials from Zogo you will have access to hundreds of more educational modules. You will be able to find the module_id for these modules in the COntent Library within your Partner Portal.
+The content that will be displayed in the iframe is determined by the module_id you include in the iframe URL. Each education module (i.e. lesson) has a unique ID. When using the testing/development credentials included in [API Reference](#api-reference) you will only have access to the following ten demo modules. Once you retrieve your production credentials from Zogo you will have access to hundreds of more educational modules. You will be able to find the module_id for these modules in the Content Library within your Partner Portal.
 
 ### Demo Modules
 
@@ -66,7 +66,7 @@ The content that will be displayed in the iframe is determined by the module_id 
 
 ### API Base URL
 
-All API routes should be appended to the following base url: `https://api.zogofinance.com/production/v1`
+All API routes should be appended to the following base URL: `https://api.zogofinance.com/production/v1`
 
 ### Basic Authorization
 
@@ -86,7 +86,7 @@ For production, please reach out to Zogo for production credentials.
 
 By default, all /users routes only return data for production users.
 
-To retrieve API response for testing/development users append the `is_testing=true` url parmater to the API request.
+To retrieve an API response with data for testing/development users append the `is_testing=true` URL parameter to the API request.
 
 For example: `/integration/users/points?is_testing=true`
 
@@ -517,14 +517,13 @@ axios.get(`${BASE_URL}/integration/users/${userId}/module-history`, headers)
 
  </details>
 
-
 # Customizations
 
 Zogo Integration has two types of customizations, ones that are controlled by Zogo's backend and ones that are controlled by configuration object passed into the iframe.
 
-## Client Controlled Customizations:
+## Client-Controlled Customizations:
 
-These customizations are passed to the client via a encoded URL parameter. this parameter is called `integration_customizations`.
+These customizations are passed to the client via an encoded URL parameter. this parameter is called `integration_customizations`.
 
 The `integration_customizations` object should be in the following format:
 
@@ -554,7 +553,7 @@ The `integration_customizations` object should be in the following format:
 }
 ```
 
-Be advised that if any of these are left blank or null there is fallback behavior to ensure that these elements still have a assigned property, however it is best practice to simply fill out the entire object as seen above.
+Be advised that if any of these are left blank or null, there is fallback behavior to ensure that these elements still have an assigned property. However, it is best practice to simply fill out the entire object as seen above.
 
 ## Customizations details
 
@@ -566,7 +565,7 @@ The color object defines the color palette of the application. The color propert
   - This is the overall theme color of the app, when non-text color is being applied somewhere it will usually be using this color or a derivative of this color.
 - header
   - This color applies to primary text throughout the iFrame.
-- sub_header
+- sub-header
   - This color applies to secondary/sub header text throughout the iFrame.
 - button
   - This color applies to the text of buttons. NOTE: Buttons take on the primary color.
@@ -574,11 +573,11 @@ The color object defines the color palette of the application. The color propert
   - This is the overall background color of the app.
 - highlight
 
-  - This the border color of the app, it effects items like the snippet card boarders and the border of question answers.
+  - This the border color of the app, it affects items like the snippet card borders and the border of question answers.
 
-  Below are screenshots of the app using the default colors:
+Below are screenshots of the app using the default colors:
 
-  ![Screenshot 2023-07-17 at 12.53.13 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_12.53.13_PM.png)
+![Screenshot 2023-07-17 at 12.53.13 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_12.53.13_PM.png)
 
 ![Screenshot 2023-07-17 at 12.53.28 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_12.53.28_PM.png)
 
@@ -615,10 +614,10 @@ Below are screenshots of the app using the customized colors:
 
 **Language:**
 
-Zogo supports both English and Spanish for SOME modules. To request that the content be served up in Spanish the language property can be set to the US Spanish language code:
+Zogo supports Spanish for some modules. Use this property to specify which language you want to deliver to the user. For a complete list of modules that are available in Spanish please reach out to your your CX representative.
 
 ```swift
-"language": "en-US", // en-US | es-US
+"language": "en-US", // en-US (English) | es-US (Spanish)
 ```
 
 **Buttons:**
@@ -693,7 +692,7 @@ You will need to setup listeners for these events. Examples of listeners can be 
 - "zogo ready"
   - This message will fire when the iframe has loaded
 - "openURL:{url clicked}"
-  - If a user clicks a link in a snippet this message will fire and include the url for the link that was clicked
+  - If a user clicks a link in a snippet this message will fire and include the URL for the link that was clicked
 - "module complete"
   - This message will fire when the user clicks the call to action button on the end of module screen.
   - the value of this message can be customized.
