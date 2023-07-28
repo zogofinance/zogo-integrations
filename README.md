@@ -577,34 +577,34 @@ The color object defines the color palette of the application. The color propert
 
 Below are screenshots of the app using the default colors:
 
-![Screenshot 2023-07-17 at 12.53.13 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_12.53.13_PM.png)
+![Screenshot 2023-07-17 at 12.53.13 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/standard1.png)
 
-![Screenshot 2023-07-17 at 12.53.28 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_12.53.28_PM.png)
+![Screenshot 2023-07-17 at 12.53.28 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/standard2.png)
 
-![Screenshot 2023-07-17 at 12.53.38 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_12.53.38_PM.png)
+![Screenshot 2023-07-17 at 12.53.38 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/standard3.png)
 
-![Screenshot 2023-07-17 at 12.54.50 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_12.54.50_PM.png)
+![Screenshot 2023-07-17 at 12.54.50 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/standard4.png)
 
 Below are screenshots of the app using the customized colors:
 
 ```json
 	"colors": {
-		"primary": "e7406d",
-		"header": "#f1efef",
-		"sub_header": "#b1adad",
+		"primary": "#3ecff6",
+		"header": "#ffffff",
+		"sub_header": "#a4a8ba",
 		"button": "#ffffff",
-		"background": "#3d3d3d",
-		"highlight": "#e0bcbc"
+		"background": "#232234",
+		"highlight": "#47475c"
 	},
 ```
 
-![Screenshot 2023-07-17 at 12.45.10 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot+2023-07-27+at+8.56.57+AM.png)
+![Screenshot 2023-07-17 at 12.45.10 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/custom1.png)
 
-![Screenshot 2023-07-17 at 12.44.55 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot+2023-07-27+at+8.57.28+AM.png)
+![Screenshot 2023-07-17 at 12.44.55 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/custom2.png)
 
-![Screenshot 2023-07-17 at 12.44.44 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot+2023-07-27+at+8.57.42+AM.png)
+![Screenshot 2023-07-17 at 12.44.44 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/custom3.png)
 
-![Screenshot 2023-07-17 at 12.45.29 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot+2023-07-27+at+8.57.57+AM.png)
+![Screenshot 2023-07-17 at 12.45.29 PM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/custom4.png)
 
 **Fonts:**
 
@@ -675,11 +675,11 @@ What do points visually look like?
 
 This emblem shows up on several pages and can be removed for an added fee. Examples of this emblem in context are seen below.
 
-![Screenshot 2023-07-17 at 11.53.17 AM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_11.53.17_AM.png)
+![Screenshot 2023-07-17 at 11.53.17 AM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/standard2.png)
 
-![Screenshot 2023-07-17 at 11.53.33 AM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_11.53.33_AM.png)
+![Screenshot 2023-07-17 at 11.53.33 AM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/standard3.png)
 
-![Screenshot 2023-07-17 at 11.53.10 AM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot_2023-07-17_at_11.53.10_AM.png)
+![Screenshot 2023-07-17 at 11.53.10 AM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/standard4.png)
 
 # PostMessage Events
 
