@@ -4,6 +4,8 @@ Zogo Integration utilizes an iframe to display a reduced version of the Zogo lea
 
 This integration features robust customizations controlled both by your implementations and our backend — we’ll cover the difference between these two here shortly.
 
+## Also check out this [Video Walkthrough](https://www.loom.com/share/85b8a103f9834d3eaf0a5e074d2e7779) that goes through a basic integration!
+
 ## Table of contents
 
 - [Integration Overview](#integration-overview)
@@ -118,6 +120,7 @@ User Access Tokens need to be generated and passed to the iframe to authenticate
 Notes on user_id
 
 - Your backend service provides this user_id - Zogo uses this user_id to save individual user progress
+  - **IMPORTANT:** You will not be able to reuse the same user_id for testing/development and production users. All user_ids must be unique irregardless of user type.
 - The user_id provided must be unique and URL safe
 - The user_id can be a string or integer
 
@@ -367,7 +370,6 @@ Use this route to get points for a specified user
 
 **parameters:**
 
-`is_testing`: boolean (query) (optional): returns test users instead of production users if set to true
 `userId`: string (path)
 
 **Example 200 Response:**
@@ -411,8 +413,6 @@ axios.get(`${BASE_URL}/integration/users/${userId}/points`, headers)
 Use this route to adjust points for a specified user
 
 **parameters:**
-
-`is_testing`: boolean (query) (optional): returns test users instead of production users if set to true
 
 `userId`: string (path)
 
@@ -475,8 +475,6 @@ axios.patch(`${BASE_URL}/integration/users/${userId}/points`, body, headers)
 Use this route to get the started and completed modules for a specified user. There is no data here if a user has not first started a module.
 
 **parameters:**
-
-`is_testing`: boolean (query) (optional): returns test users instead of production users if set to true
 
 `userId`: string (path)
 
@@ -616,7 +614,7 @@ Below are screenshots of the app using the customized colors:
 
 **Language:**
 
-Zogo supports Spanish for some modules. Use this property to specify which language you want to deliver to the user. For a complete list of modules that are available in Spanish please reach out to your your CX representative.
+Zogo supports Spanish for some modules. Use this property to specify which language you want to deliver to the user. You will be able to view a complete list of modules that support Spanish in the Content Library within your Partner Portal.
 
 ```swift
 "language": "en-US", // en-US (English) | es-US (Spanish)
