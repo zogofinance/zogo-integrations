@@ -607,12 +607,12 @@ Use this route to get the skill history for a particular user. This response onl
 [
   {
     "skill_name": "string",
-	  "skill_id": 3,
-	  "skill_accuracy": 85, // an average accuracy for the completed modules
-	  "category_name": "string",
-	  "category_id": 123,
-	  "modules_completed_count": 4,
-	  "modules_total_count": 29,
+    "skill_id": 3,
+    "skill_accuracy": 85, // an average accuracy for the completed modules
+    "category_name": "string",
+    "category_id": 123,
+    "modules_completed_count": 4,
+    "modules_total_count": 29,
 	},
 	...
 ]
@@ -668,8 +668,8 @@ Use this route to get the skill history for all users. This response only includ
         "category_id": 123,
         "modules_completed_count": 4,
         "modules_total_count": 29,
-	    },
-	    ...
+      },
+      ...
     ]
   },
   ...
