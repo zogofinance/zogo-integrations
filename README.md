@@ -92,13 +92,13 @@ All API routes require a basic auth token.
 
 To generate the Basic token, you will take the client_id and client_secret in “client_id:client_secret” format and encode it using base64 encoding. For testing you can also use the Basic Auth with your credentials in apps like Postman.
 
+> 💡 This encoding can be done automatically with [this tool](https://www.debugbear.com/basic-auth-header-generator)
+
 For testing/development you can use the following basic token: “Basic MzQzNDM0Om15c2VjcmV0”
 
 - client_id “343434” and client_secret “mysecret”
 
 For production, please reach out to Zogo for production credentials.
-
-💡 This can be done automatically with [this tool](https://www.debugbear.com/basic-auth-header-generator)
 
 ### Testing flag for `/users` routes
 
@@ -125,9 +125,9 @@ User Access Tokens need to be generated and passed to the iframe to authenticate
 
 ```json
 {
-	scope="webcomponent_user"
-	user_id="abc-283411111"
-	grant_type="client_credentials"
+  "scope": "webcomponent_user",
+  "user_id": "abc-283411111",
+  "grant_type": "client_credentials"
 }
 ```
 
@@ -495,18 +495,20 @@ Use this route to get the started and completed modules for a specified user. Th
 **Example 200 Response:**
 
 ```json
-"module_history": [
-  {
-    "module_id": 123,
-    "module_name": "string",
-    "progress": 50,
-    "percent_accuracy": 77,
-    "date_started": "string",
-    "date_completed": "string",
-	  "module_status": "active", // active | inactive
-  },
-	...
-]
+{
+  "module_history": [
+    {
+      "module_id": 123,
+      "module_name": "string",
+      "progress": 50,
+      "percent_accuracy": 77,
+      "date_started": "string",
+      "date_completed": "string",
+      "module_status": "active", // active | inactive
+    },
+    ...
+  ]
+}
 ```
 
 **Examples/Reference:**
@@ -560,7 +562,7 @@ Use this route to get module history for all users
         "date_completed": "string",
 	      "module_status": "active", // active | inactive
       },
-	  ...
+	    ...
     ]
   },
   ...
