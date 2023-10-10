@@ -388,10 +388,10 @@ Use this route to adjust points for a specified user
 
 **Example Request Body**
 
-```
+```json
 {
-	"primary_points_change_amount": 200,
-	"primary_points_change_type": "subtract"
+  "primary_points_change_amount": 200,
+  "primary_points_change_type": "subtract"
 }
 ```
 
@@ -560,9 +560,9 @@ Use this route to get module history for all users
         "percent_accuracy": 77,
         "date_started": "string",
         "date_completed": "string",
-	      "module_status": "active", // active | inactive
+        "module_status": "active", // active | inactive
       },
-	    ...
+      ...
     ]
   },
   ...
@@ -606,13 +606,13 @@ Use this route to get the skill history for a particular user. This response onl
 ```json
 [
   {
-		"skill_name": "string",
-		"skill_id": 3,
-		"skill_accuracy": 85, // an average accuracy for the completed modules
-		"category_name": "string",
-		"category_id": 123,
-		"modules_completed_count": 4,
-		"modules_total_count": 29,
+    "skill_name": "string",
+	  "skill_id": 3,
+	  "skill_accuracy": 85, // an average accuracy for the completed modules
+	  "category_name": "string",
+	  "category_id": 123,
+	  "modules_completed_count": 4,
+	  "modules_total_count": 29,
 	},
 	...
 ]
@@ -661,8 +661,8 @@ Use this route to get the skill history for all users. This response only includ
     "user_id": "123",
     "skill_history": [
       {
-	      "skill_name": "string",
-		    "skill_id": 3,
+        "skill_name": "string",
+        "skill_id": 3,
         "skill_accuracy": 85, // an average accuracy for the completed modules
         "category_name": "string",
         "category_id": 123,
