@@ -4,7 +4,7 @@ Zogo Integration utilizes an iframe to display a reduced version of the Zogo lea
 
 This integration features robust customizations controlled both by your implementations and our backend — we’ll cover the difference between these two here shortly.
 
-## Also check out this [Video Walkthrough](https://www.loom.com/share/85b8a103f9834d3eaf0a5e074d2e7779) that goes through a basic integration!
+## Also check out this [Video Walkthrough](https://www.loom.com/share/0df597b8c9c849b4ab6e1a8fff12e708) that goes through a basic integration!
 
 ## Table of contents
 
@@ -27,7 +27,7 @@ This integration features robust customizations controlled both by your implemen
 5. Build your iframe URL to embed by combining the Iframe Base URL, User Access Token, Widget Type, Module ID (if applicable), and Customization Object (see [Iframe URL](#iframe-url))
 6. Embed the iframe URL and listen for the appropriate postMessage events (See [Demo Integration Template](#demo-integration-template) and [PostMessage Events](#postmessage-events)).
 
-> ❗Also check out this [Video Walkthrough](https://www.loom.com/share/85b8a103f9834d3eaf0a5e074d2e7779) that goes through a basic integration!
+> ❗Also check out this [Video Walkthrough](https://www.loom.com/share/0df597b8c9c849b4ab6e1a8fff12e708) that goes through a basic integration!
 
 # Iframe URL
 
