@@ -7,29 +7,29 @@
 }
 
 .fake-phone-frame {
-  height: 667px;
+  height: 800px;
 }
 
 .fake-parent-app {
   position: absolute;
-  height: 644px;
+  height: 775px;
   top: 12px;
   left: 14px;
   border-radius: 36px;
-  width: 305px;
+  width: 365px;
 }
 
 .start-learning-button {
   height: 44px;
   position: absolute;
-  width: 305px;
-  top: 547px;
+  width: 365px;
+  top: 657px;
   left: 14px;
   cursor: pointer;
 }
 
 .simulation-container {
-  max-width: 333px;
+  max-width: 390px;
   position: relative;
 }
 
@@ -46,10 +46,10 @@
 .iframe-positioning {
   position: absolute;
   top: 82px;
-  left: 14px;
+  left: 17px;
   border: none;
-  width: 305px;
-  height: 574px;
+  width: 365px;
+  height: 705px;
   border-bottom-left-radius: 38px;
   border-bottom-right-radius: 38px;
   z-index: 4;
@@ -65,7 +65,7 @@
   padding-top: 22px;
   padding-bottom: 22px;
   border-bottom: 2px solid #dcdcdc;
-  width: 285px;
+  width: 350px;
   left: 14px;
   padding-left: 10px;
   padding-right: 10px;

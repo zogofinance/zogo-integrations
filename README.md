@@ -10,6 +10,7 @@ This integration features robust customizations controlled both by your implemen
 
 - [Integration Overview](#integration-overview)
 - [Iframe URL](#iframe-url)
+- [Widget Type](#widget-type)
 - [Module IDs](#module-ids)
 - [API Reference](#api-reference)
 - [Customizations](#customizations)
@@ -20,12 +21,13 @@ This integration features robust customizations controlled both by your implemen
 # Integration Overview
 
 1. Retrieve a User Access Token from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-reference))
-2. Choose the Module ID of the content you wish to embed. (see [Module IDs](#module-ids))
-3. Choose your customizations by generating your Customization Object (see [Customizations](#customizations))
-4. Build your iframe URL to embed by combining the Iframe Base URL, User Access Token, Module ID, and Customization Object (see [Iframe URL](#iframe-url))
-5. Embed the iframe URL and listen for the appropriate postMessage events (See [Demo Integration Template](#demo-integration-template) and [PostMessage Events](#postmessage-events)).
+2. Choose the Widget Type for the type of integration you intend to use. (see [Widget Type](#widget-type))
+3. If you are using the Deep Link Widget Type, you will need to choose the Module ID of the content you wish to embed. (see [Module IDs](#module-ids))
+4. Choose your customizations by generating your Customization Object (see [Customizations](#customizations))
+5. Build your iframe URL to embed by combining the Iframe Base URL, User Access Token, Widget Type, Module ID (if applicable), and Customization Object (see [Iframe URL](#iframe-url))
+6. Embed the iframe URL and listen for the appropriate postMessage events (See [Demo Integration Template](#demo-integration-template) and [PostMessage Events](#postmessage-events)).
 
-Also check out this [Video Walkthrough](https://www.loom.com/share/85b8a103f9834d3eaf0a5e074d2e7779) that goes through a basic integration!
+> ❗Also check out this [Video Walkthrough](https://www.loom.com/share/85b8a103f9834d3eaf0a5e074d2e7779) that goes through a basic integration!
 
 # Iframe URL
 
@@ -39,13 +41,25 @@ The base URL determines whether the visual client you are using is the productio
 
 ### URL Parameters
 
-`{BASE_URL}?token={USER_ACCESS_TOKEN}&module_id={MODULE_ID}&integration_customizations={CUSTOMIZATION_OBJECT}`
+`{BASE_URL}?widget_type={WIDGET_TYPE}&token={USER_ACCESS_TOKEN}&module_id={MODULE_ID}&integration_customizations={CUSTOMIZATION_OBJECT}`
 
-- **token:** single-use token retrieved from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-reference))
-- **module_id:** the ID of the content you wish to embed. (see [Module IDs](#module-ids))
-- **integration_customizations:** URL-encoded configuration object for the customizations you want to use (see [Customizations](#customizations)
+- **widget_type ('deep_link', 'skill_select'):** indicates which type of integration you indicate to use (see [Widget Type](#widget-type))
+- **token (string):** single-use token retrieved from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-reference))
+- **module_id (number):** the ID of the content you wish to embed. (see [Module IDs](#module-ids))
+- **integration_customizations (object):** URL-encoded configuration object for the customizations you want to use (see [Customizations](#customizations))
+
+# Widget Type
+
+There are currently two different widget types supported with Zogo Integration. Choose the type most appropriate for your use case.
+
+- **deep_link:** You can embed a single learning module. When using this widget type, you will need to specify the module ID of the particular piece of content you want to embed.
+- **skill_select:** You can embed an entire curriculum of learning content. When using this widget type, the user can explore and complete multiple skills (which are a collection of multiple related modules). This widget type also includes other feature such as search and streaks. You will be able to customize what learning content is shown using the Content Library within your Partner Portal.
+
+Both widget types are supported when using the demo credentials. You will need to confirm with your CX Representative which options your contract supports when using your production credentials.
 
 # Module IDs
+
+> ❗ Specifying a module ID is only relevant for the deep_link widget type
 
 The content that will be displayed in the iframe is determined by the module_id you include in the iframe URL. Each education module (i.e. lesson) has a unique ID. When using the testing/development credentials included in [API Reference](#api-reference) you will only have access to the following ten demo modules. Once you retrieve your production credentials from Zogo you will have access to hundreds of more educational modules. You will be able to find the module_id for these modules in the Content Library within your Partner Portal.
 
@@ -78,13 +92,13 @@ All API routes require a basic auth token.
 
 To generate the Basic token, you will take the client_id and client_secret in “client_id:client_secret” format and encode it using base64 encoding. For testing you can also use the Basic Auth with your credentials in apps like Postman.
 
+> 💡 This encoding can be done automatically with [this tool](https://www.debugbear.com/basic-auth-header-generator)
+
 For testing/development you can use the following basic token: “Basic MzQzNDM0Om15c2VjcmV0”
 
 - client_id “343434” and client_secret “mysecret”
 
 For production, please reach out to Zogo for production credentials.
-
-💡 This can be done automatically with [this tool](https://www.debugbear.com/basic-auth-header-generator)
 
 ### Testing flag for `/users` routes
 
@@ -92,7 +106,7 @@ By default, all /users routes only return data for production users.
 
 To retrieve an API response with data for testing/development users append the `is_testing=true` URL parameter to the API request.
 
-For example: `/integration/users/points?is_testing=true`
+For example: `/integration/users/points/all?is_testing=true`
 
 ## API Routes
 
@@ -111,9 +125,9 @@ User Access Tokens need to be generated and passed to the iframe to authenticate
 
 ```json
 {
-	scope="webcomponent_user"
-	user_id="abc-283411111"
-	grant_type="client_credentials"
+  "scope": "webcomponent_user",
+  "user_id": "abc-283411111",
+  "grant_type": "client_credentials"
 }
 ```
 
@@ -311,55 +325,7 @@ The fastest way to get a token for testing purposes is by utilizing CURL.
 
   </details>
 
-### GET `/integration/users/points/all`
-
-<details>
-<summary>Details:</summary>
-
-**Description:**
-
-Use this route to get points for all users
-
-**parameters:**
-
-`is_testing`: boolean (query) (optional): returns test users instead of production users if set to true
-
-**Example 200 Response:**
-
-```json
-[
-  {
-      "user_id": "123",
-      "first_name": null, // this will always be null
-      "last_name": null, // this will always be null
-      "primary_points": 100,
-  },
-  ...
-]
-```
-
-**Examples/Reference:**
-
-```
-const axios = require('axios');
-
-const headers = {
-	Authorization: 'Basic MzQzNDM0Om15c2VjcmV0',
-};
-
-axios.get(`${BASE_URL}/integration/users/points/all`, headers)
-    .then((res) => {
-        console.log(`Users: ${res}`);
-    }).catch((err) => {
-        console.error(err);
-    });
-```
-
- </details>
- 
-  </details>
- 
- ### GET `/integration/users/{userId}/points`
+### GET `/integration/users/{userId}/points`
 
 <details>
 <summary>Details:</summary>
@@ -422,10 +388,10 @@ Use this route to adjust points for a specified user
 
 **Example Request Body**
 
-```
+```json
 {
-	"primary_points_change_amount": 200,
-	"primary_points_change_type": "subtract"
+  "primary_points_change_amount": 200,
+  "primary_points_change_type": "subtract"
 }
 ```
 
@@ -464,6 +430,54 @@ axios.patch(`${BASE_URL}/integration/users/${userId}/points`, body, headers)
 
  </details>
  
+ ### GET `/integration/users/points/all`
+
+<details>
+<summary>Details:</summary>
+
+**Description:**
+
+Use this route to get points for all users
+
+**parameters:**
+
+`is_testing`: boolean (query) (optional): returns test users instead of production users if set to true
+
+**Example 200 Response:**
+
+```json
+[
+  {
+      "user_id": "123",
+      "first_name": null, // this will always be null
+      "last_name": null, // this will always be null
+      "primary_points": 100,
+  },
+  ...
+]
+```
+
+**Examples/Reference:**
+
+```
+const axios = require('axios');
+
+const headers = {
+	Authorization: 'Basic MzQzNDM0Om15c2VjcmV0',
+};
+
+axios.get(`${BASE_URL}/integration/users/points/all`, headers)
+    .then((res) => {
+        console.log(`Users: ${res}`);
+    }).catch((err) => {
+        console.error(err);
+    });
+```
+
+ </details>
+ 
+  </details>
+ 
  
 ### GET `/integration/users/{userId}/module-history`
 
@@ -481,19 +495,20 @@ Use this route to get the started and completed modules for a specified user. Th
 **Example 200 Response:**
 
 ```json
-"module_history": [
-  {
-    "module_id": 0,
-    "image": "string",
-    "module_name": "string",
-    "progress": 0,
-    "percent_accuracy": 0,
-    "date_started": "string",
-    "date_completed": "string",
-			"module_status": "active",
-  },
-	...
-]
+{
+  "module_history": [
+    {
+      "module_id": 123,
+      "module_name": "string",
+      "progress": 50,
+      "percent_accuracy": 77,
+      "date_started": "string",
+      "date_completed": "string",
+      "module_status": "active", // active | inactive
+    },
+    ...
+  ]
+}
 ```
 
 **Examples/Reference:**
@@ -516,7 +531,170 @@ axios.get(`${BASE_URL}/integration/users/${userId}/module-history`, headers)
 ```
 
  </details>
+ 
+ ### GET `/integration/users/module-history/all`
 
+<details>
+
+<summary>Details:</summary>
+
+**Description:**
+
+Use this route to get module history for all users
+
+**parameters:**
+
+`is_testing`: boolean (query) (optional): returns test users instead of production users if set to true
+
+**Example 200 Response:**
+
+```json
+[
+  {
+    "user_id": "123",
+    "module_history": [
+      {
+        "module_id": 123,
+        "module_name": "string",
+        "progress": 50,
+        "percent_accuracy": 77,
+        "date_started": "string",
+        "date_completed": "string",
+        "module_status": "active", // active | inactive
+      },
+      ...
+    ]
+  },
+  ...
+]
+```
+
+**Examples/Reference:**
+
+```
+const axios = require('axios');
+
+const headers = {
+	Authorization: 'Basic MzQzNDM0Om15c2VjcmV0',
+};
+
+axios.get(`${BASE_URL}/integration/users/module-history/all`, headers)
+    .then((res) => {
+        console.log(`Users: ${res}`);
+    }).catch((err) => {
+        console.error(err);
+    });
+```
+
+ </details>
+ 
+ ### GET `/integration/users/{userId}/skills/progress`
+
+<details>
+<summary>Details:</summary>
+
+**Description:**
+
+Use this route to get the skill history for a particular user. This response only includes active skills where the user has completed at least one module.
+
+**parameters:**
+
+`userId`: string (path)
+
+**Example 200 Response:**
+
+```json
+[
+  {
+    "skill_name": "string",
+    "skill_id": 3,
+    "skill_accuracy": 85, // an average accuracy for the completed modules
+    "category_name": "string",
+    "category_id": 123,
+    "modules_completed_count": 4,
+    "modules_total_count": 29,
+	},
+	...
+]
+```
+
+**Examples/Reference:**
+
+```
+const axios = require('axios');
+
+const userId = 1234;
+
+const headers = {
+	Authorization: 'Basic MzQzNDM0Om15c2VjcmV0'
+};
+
+axios.get(`${BASE_URL}/integration/users/${userId}/skills/progress`, headers)
+    .then((res) => {
+        console.log(`skills progress: ${res}`);
+    }).catch((err) => {
+        console.error(err);
+    });
+```
+
+ </details>
+ 
+  ### GET `/integration/users/skills/progress/all`
+
+<details>
+
+<summary>Details:</summary>
+
+**Description:**
+
+Use this route to get the skill history for all users. This response only includes active skills where the user has completed at least one module.
+
+**parameters:**
+
+`is_testing`: boolean (query) (optional): returns test users instead of production users if set to true
+
+**Example 200 Response:**
+
+```json
+[
+  {
+    "user_id": "123",
+    "skill_history": [
+      {
+        "skill_name": "string",
+        "skill_id": 3,
+        "skill_accuracy": 85, // an average accuracy for the completed modules
+        "category_name": "string",
+        "category_id": 123,
+        "modules_completed_count": 4,
+        "modules_total_count": 29,
+      },
+      ...
+    ]
+  },
+  ...
+]
+```
+
+**Examples/Reference:**
+
+```
+const axios = require('axios');
+
+const headers = {
+	Authorization: 'Basic MzQzNDM0Om15c2VjcmV0',
+};
+
+axios.get(`${BASE_URL}/integration/users/skills/progress/all`, headers)
+    .then((res) => {
+        console.log(`Users: ${res}`);
+    }).catch((err) => {
+        console.error(err);
+    });
+```
+
+ </details>
+ 
 # Customizations
 
 Zogo Integration has two types of customizations, ones that are controlled by Zogo's backend and ones that are controlled by configuration object passed into the iframe.
@@ -549,7 +727,8 @@ The `integration_customizations` object should be in the following format:
     "cta_post_message": "user clicked the cta button",
     "banner_image": "image_url",
     "banner_post_message": "user clicked the banner image"
-  }
+  },
+  "icon pack": "classic" // classic | playful | clean
 }
 ```
 
@@ -616,7 +795,7 @@ Below are screenshots of the app using the customized colors:
 
 Zogo supports Spanish for some modules. Use this property to specify which language you want to deliver to the user. You will be able to view a complete list of modules that support Spanish in the Content Library within your Partner Portal.
 
-```swift
+```json
 "language": "en-US", // en-US (English) | es-US (Spanish)
 ```
 
@@ -641,6 +820,8 @@ The border radius of buttons can be customized up to 30 pixels, and the text sty
 
 **End of Module:**
 
+> ❗ This customization only applies to the deep_link widget type!
+
 The end of module (eom) behavior and messaging is controlled by you. When a user reaches this page there is an optional banner ad space for your utilization which emits a postMessage to the parent app (your app). The call to action button on the page (in this example it says “DONE”, and the banner ad both emit unique postMessages you specify and any behavior from these two items is controlled by the parent app.
 
 ```json
@@ -654,6 +835,28 @@ The end of module (eom) behavior and messaging is controlled by you. When a user
 ```
 
 ![Screenshot 2023-07-18 at 10.27.58 AM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot+2023-07-27+at+9.08.07+AM.png)
+
+**Icon Pack:**
+
+> ❗ This customization only applies to the skill_select widget type!
+
+Each skill has a unique skill icon from one of three icon packs. You can specify which icon pack you wish to use.
+
+```json
+"icon_pack": "classic" // classic | playful | clean
+```
+
+Classic:
+
+![Screenshot 2023-07-18 at 10.27.58 AM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot+2023-10-10+at+3.44.55+PM.png)
+
+Playful:
+
+![Screenshot 2023-07-18 at 10.27.58 AM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot+2023-10-10+at+3.45.22+PM.png)
+
+Clean:
+
+![Screenshot 2023-07-18 at 10.27.58 AM.png](https://zogo-files.s3.amazonaws.com/zogo-integrations-resources/Screenshot+2023-10-10+at+3.45.41+PM.png)
 
 ## Backend Controlled Customizations:
 

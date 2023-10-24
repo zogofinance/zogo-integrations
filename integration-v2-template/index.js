@@ -1,14 +1,20 @@
-// the id of the module you want to link to
+// the type of integration you want to use
+const WIDGET_TYPE = 'deep_link'; // deep_link || skill_select
+
+// the id of the module you want to link to.  This values only applies to deep_link widget type
 const MODULE_ID = '<MODULE_ID>';
 
 // user token for the individual instance of the iFrame, single use. See documentation for details on how you should be retrieving this token.
 const TOKEN = '<ZOGO_TOKEN>';
 
-// the base url integration.zogo.com is the current active production environment dev-integration.zogo.com is the latest published version
-const BASE_URL = 'https://integration.zogo.com'; // || https://dev-integration.zogo.com
+// the base url integration.zogo.com is the current active production environment dev-integration.zogo.com is the latest pre-release version
+const BASE_URL = 'https://integration.zogo.com'; // https://integration.zogo.com|| https://dev-integration.zogo.com
 
 // the basic settings and auth token
-const BASE_URL_PARAMS = `?widget_type=deep_link&token=${TOKEN}&module_id=${MODULE_ID}`;
+const BASE_URL_PARAMS =
+  WIDGET_TYPE === 'deep_link'
+    ? `?widget_type=${WIDGET_TYPE}&token=${TOKEN}&module_id=${MODULE_ID}`
+    : `?widget_type=${WIDGET_TYPE}&token=${TOKEN}`;
 
 //customizable items object
 const INTEGRATION_CUSTOMIZATIONS = {
@@ -27,12 +33,14 @@ const INTEGRATION_CUSTOMIZATIONS = {
   },
   language: 'en-US', // en-US || es-US
   end_of_module: {
+    // only used for deep_link widget type
     cta_text: 'You finished this module!', // Default: 'You finished this module!'
     cta_button_text: 'done', // Default: 'done'
     cta_post_message: 'module complete', // this is emitted to the parent app (this app/ your implementation) so you can control navigating see FLOW LISTENERS below
     banner_image: null, // image url for optional banner image
     banner_post_message: 'banner clicked', // this is emitted when a user taps the banner image.
   },
+  icon_pack: 'classic', // classic || playful || clean - only used for skill_select widget type
 };
 
 // the customizations get url encoded and prepped to be added as a URL parameter
@@ -41,7 +49,7 @@ const encodedIntegrationCustomizations = encodeURIComponent(
 );
 
 // the final URL to be used on the iFrame and the customizations
-const builtiFrameURL =
+const builtIframeURL =
   BASE_URL +
   BASE_URL_PARAMS +
   `&integration_customizations=${encodedIntegrationCustomizations}`;
@@ -101,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
   iframe = document.getElementById('iframe');
   iframe.parentNode.removeChild(iframe);
-  iframe.src = builtiFrameURL;
+  iframe.src = builtIframeURL;
   console.log('iframe pulled from DOM');
 });
 
