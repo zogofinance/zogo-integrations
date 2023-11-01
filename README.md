@@ -479,7 +479,7 @@ axios.get(`${BASE_URL}/integration/users/points/all`, headers)
   </details>
  
  
-### GET `/integration/users/{userId}/module-history`
+### GET `/integration/users/{userId}/modules-history`
 
 <details>
 <summary>Details:</summary>
@@ -522,7 +522,7 @@ const headers = {
 	Authorization: 'Basic MzQzNDM0Om15c2VjcmV0'
 };
 
-axios.get(`${BASE_URL}/integration/users/${userId}/module-history`, headers)
+axios.get(`${BASE_URL}/integration/users/${userId}/modules-history`, headers)
     .then((res) => {
         console.log(`module_history: ${res.module_history}`);
     }).catch((err) => {
@@ -532,7 +532,7 @@ axios.get(`${BASE_URL}/integration/users/${userId}/module-history`, headers)
 
  </details>
  
- ### GET `/integration/users/module-history/all`
+ ### GET `/integration/users/modules-history/all`
 
 <details>
 
@@ -578,7 +578,7 @@ const headers = {
 	Authorization: 'Basic MzQzNDM0Om15c2VjcmV0',
 };
 
-axios.get(`${BASE_URL}/integration/users/module-history/all`, headers)
+axios.get(`${BASE_URL}/integration/users/modules-history/all`, headers)
     .then((res) => {
         console.log(`Users: ${res}`);
     }).catch((err) => {
