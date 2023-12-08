@@ -22,7 +22,7 @@ This integration features robust customizations controlled both by your implemen
 
 1. Retrieve a User Access Token from the Zogo API using the `POST /integration/token` route (see [API Reference](#api-reference))
 2. Choose the Widget Type for the type of integration you intend to use. (see [Widget Type](#widget-type))
-3. If you are using the Deep Link Widget Type, you will need to choose the Module ID of the content you wish to embed. (see [Module IDs](#module-ids))
+3. If you are using the Embedded Module (Deep Link) Widget Type, you will need to choose the Module ID of the content you wish to embed. (see [Module IDs](#module-ids))
 4. Choose your customizations by generating your Customization Object (see [Customizations](#customizations))
 5. Build your iframe URL to embed by combining the Iframe Base URL, User Access Token, Widget Type, Module ID (if applicable), and Customization Object (see [Iframe URL](#iframe-url))
 6. Embed the iframe URL and listen for the appropriate postMessage events (See [Demo Integration Template](#demo-integration-template) and [PostMessage Events](#postmessage-events)).
@@ -52,8 +52,8 @@ The base URL determines whether the visual client you are using is the productio
 
 There are currently two different widget types supported with Zogo Integration. Choose the type most appropriate for your use case.
 
-- **deep_link:** You can embed a single learning module. When using this widget type, you will need to specify the module ID of the particular piece of content you want to embed.
-- **skill_select:** You can embed an entire curriculum of learning content. When using this widget type, the user can explore and complete multiple skills (which are a collection of multiple related modules). This widget type also includes other feature such as search and streaks. You will be able to customize what learning content is shown using the Content Library within your Partner Portal.
+- **Embedded Module (deep_link):** You can embed a single learning module. When using this widget type, you will need to specify the module ID of the particular piece of content you want to embed.
+- **Skill Select (skill_select):** You can embed an entire curriculum of learning content. When using this widget type, the user can explore and complete multiple skills (which are a collection of multiple related modules). This widget type also includes other feature such as search and streaks. You will be able to customize what learning content is shown using the Content Library within your Partner Portal.
 
 Both widget types are supported when using the demo credentials. You will need to confirm with your CX Representative which options your contract supports when using your production credentials.
 
