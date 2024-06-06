@@ -895,7 +895,7 @@ You will need to setup listeners for these events. Examples of listeners can be 
 - "zogo ready"
   - This message will fire when the iframe has loaded
 - "openURL:{url clicked}"
-  - If a user clicks a link in a snippet this message will fire and include the URL for the link that was clicked
+  - If a user clicks a link in a snippet or affiliate link this message will fire and include the URL for the link that was clicked
 - "module complete"
   - This message will fire when the user clicks the call to action button on the end of module screen.
   - the value of this message can be customized.
