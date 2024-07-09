@@ -1,6 +1,6 @@
 # Zogo Integration Implementation Documentation
 
-Zogo Integration utilizes an iframe to display a reduced version of the Zogo learning flow.
+Zogo Integration utilizes an iframe to display a tailored version of the Zogo learning flow.
 
 This integration features robust customizations controlled both by your implementations and our backend — we’ll cover the difference between these two here shortly.
 
