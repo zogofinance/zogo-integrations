@@ -728,7 +728,7 @@ The `integration_customizations` object should be in the following format:
     "banner_image": "image_url",
     "banner_post_message": "user clicked the banner image"
   },
-  "icon pack": "classic" // classic | playful | clean
+  "icon_pack": "classic" // classic | playful | clean
 }
 ```
 
