@@ -126,7 +126,7 @@ User Access Tokens need to be generated and passed to the iframe to authenticate
 ```json
 {
   "scope": "webcomponent_user",
-  "user_id": <desired user id>,
+  "user_id": "<desired user id as a string>",
   "grant_type": "client_credentials"
 }
 ```
